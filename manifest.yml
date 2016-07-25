@@ -1,8 +1,6 @@
-applications:
-  instances: 1
-  domain: mybluemix.net
-  name: hello-python
-  host: flask-watson-dev-first-attempt
-  disk_quota: 128M
-  command: python hello.py
+aplications:
+- name:      hello-python
+  host:      hello-python-build1
+  memory:    128M
+  command:   python hello.py
   buildpack: https://github.com/heroku/heroku-buildpack-python.git
