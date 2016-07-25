@@ -1,8 +1,8 @@
 applications:
-- path: target/pm-project-0.0.1-SNAPSHOT.jar
-  memory: 512M
   instances: 1
   domain: mybluemix.net
-  name: $BluemixAppName
-  host: $BluemixHostName
-  disk_quota: 1024M
+  name: hello-python
+  host: flask-watson-dev-first-attempt
+  disk_quota: 128M
+  command: python hello.py
+  buildpack: https://github.com/heroku/heroku-buildpack-python.git
