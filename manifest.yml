@@ -1,6 +1,6 @@
 aplications:
-- name:      hello-python
-  host:      hello-python-build1
+- name:      cerebri-hello-python
+  host:      cerebri-hello-python-build1
   memory:    128M
   command:   python hello.py
   buildpack: https://github.com/heroku/heroku-buildpack-python.git
