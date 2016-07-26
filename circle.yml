@@ -21,4 +21,5 @@ deployment:
   staging:
     branch: watsonPI
     commands:
+      - source env_var.sh
       - cf push
