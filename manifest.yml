@@ -1,4 +1,4 @@
 ---
 applications:
-- name: haad-flask-sample
+- name: watson-flask-example
   memory: 128M

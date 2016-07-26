@@ -13,7 +13,12 @@ test:
     - cf target -o cerebri -s flask-watson-dev
     - cf a
 deployment:
-  staging:
+  production:
     branch: master
+    commands:
+      - cf push
+
+  staging:
+    branch: watsonPI
     commands:
       - cf push
