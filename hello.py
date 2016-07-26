@@ -8,7 +8,7 @@ app = Flask(__name__)
 def Hello():
     return 'This is mere test. Try the /pitest route'
 
-@app.route('/pi')
+@app.route('/piroute')
 def PIroute():
     username = os.getenv('PIUsername', 'MOCK')
     password = os.getenv('PIPassword','MOCK')
@@ -20,7 +20,7 @@ def PIroute():
     return insights
 
 @app.route('/pitest')
-def PIroute():
+def PItest():
     username = 'MOCK'
     password = 'MOCK'
     url = 'MOCK'
@@ -29,7 +29,6 @@ def PIroute():
     PIDemo.insert_text('Random text for the mock code.')
     insights = PIDemo.get_personality()
     return insights
-
 
 #port = os.getenv('PORT', '8080')
 port = int(os.getenv('VCAP_APP_PORT', '5000'))
