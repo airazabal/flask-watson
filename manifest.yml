@@ -1,3 +1,4 @@
+----
 applications:
-- name: watson-flask-unauth
+- name: watson-flask-unauth2
   memory: 128M
