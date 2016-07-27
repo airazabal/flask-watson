@@ -1,4 +1,3 @@
----
 applications:
-- name: watson-flask-example
+- name: watson-flask-unauth
   memory: 128M
