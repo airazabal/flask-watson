@@ -19,12 +19,12 @@ deployment:
   production:
     branch: master
     commands:
-      - cf push /home/ubuntu/flask-watson/manifest-prod.yml
+      - cf push -f /home/ubuntu/flask-watson/manifest-prod.yml
 
   development:
-    branch: master
+    branch: dev
     commands:
-      - cf push /home/ubuntu/flask-watson/manifest-dev.yml
+      - cf push -f /home/ubuntu/flask-watson/manifest-dev.yml
 
   staging:
     branch: watsonPI
