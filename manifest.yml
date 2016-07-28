@@ -1,4 +1,3 @@
----
 applications:
-- name: haad-flask-sample
+- name: watson-flask-watsonPI
   memory: 128M

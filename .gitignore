@@ -1,3 +1,4 @@
 env/
 env_var.sh
 *.pyc
+manifest.yml
