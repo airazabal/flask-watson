@@ -1,4 +1,4 @@
-from personality_insights_wrapper import PersonalityInsightCaller, MockPersonalityInsight
+from personality_insights_wrapper import PersonalityInsight, MockPersonalityInsight
 import unittest
 
 big_5_row = [u'Big 5', u'Conscientiousness', u'Openness', u'category', u'personality', u'percentage', 0.4605497169149773, u'id', u'Liberalism', u'sampling_error', 0.07363731496, u'name', u'Authority-challenging']
@@ -12,10 +12,8 @@ class TestPersonalityInsights(unittest.TestCase):
 
         '''Make a PI caller object
         Set your credentials so it knows where to make the post request and what credentials to use'''
-        PIDemo = PersonalityInsightCaller(creds)
         #Get the PI output of the text as a dictionary containing all the response fields as listed in the API doc
-        PIDemo.insert_text('Random text for the mock code.')
-        insights = PIDemo.get_personality()
+        insights = PersonalityInsight(creds).return_pi("Random text")
 
         #The tree node contains all of the personality data we want in a recursive tree.
         list_data = insights['tree']['children']
