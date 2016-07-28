@@ -8,10 +8,8 @@ import urllib
 class MockPersonalityInsight:
 
     def return_text(self):
-        opener = urllib.URLopener()
-        myurl = "https://s3.amazonaws.com/skyl/fake.xyz"
-        myfile = opener.open(myurl)
-        object_file = pickle.load(myfile)
+        file = open("insights.pickle","rb")
+        object_file = pickle.load(file)
         file.close()
         return object_file
 
