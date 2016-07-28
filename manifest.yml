@@ -1,3 +1,3 @@
 applications:
-- name: watson-flask-watsonPI
+- name: watson-flask-dev
   memory: 128M
