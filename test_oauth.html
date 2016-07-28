@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Cerebri Oauth Tester</title>
+</head>
+<body>
+<script>
+window.fbAsyncInit = function(){
+	FB.init({
+		appId	: '1060269840728852',
+		xfbml	: true,
+		version	: 'v2.7'
+	});
+};
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+function test_oauth(){
+	FB.login(function(response){
+		if (response.authResponse) {
+			var access_token = FB.getAuthResponse()['accessToken'];
+			
+			console.log('Access Token = ' + access_token);
+			
+			FB.api('/me', function(response){
+				console.log('Good to see you, ' + response.name + '.');
+			});
+		} else {
+			console.log('User cancelled login or did not fully authorize.');
+		}
+	}, {scope: 'email, public_profile, user_friends'});
+}
+
+</script>
+
+
+<p>This is to test the passing of an Oauth token from a theoretical user</p>
+
+<button type="button" onclick="test_oauth()">Authorize!</button>
+
+
+</body>
+</html>
