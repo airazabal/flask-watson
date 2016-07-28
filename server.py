@@ -1,5 +1,8 @@
 import os
 from flask import Flask
+from flask import request
+from flask import json
+from flask import jsonify
 from personality_insights_wrapper import PersonalityInsightCaller
 
 app = Flask(__name__)
@@ -12,16 +15,34 @@ def index():
 def hello():
     return 'Hello, World'
 
-@app.route('/piroute')
+@app.route('/piroute', methods=['GET','POST'])
 def PIroute():
-    username = os.getenv('PIUsername', 'MOCK')
-    password = os.getenv('PIPassword','MOCK')
-    url = os.getenv('PIUrl','MOCK')
-    creds = {'username':username,'password':password,'url':url}
-    PIDemo = PersonalityInsightCaller(creds)
-    PIDemo.insert_text('Random text for the mock code.')
-    insights = PIDemo.get_personality()
-    return insights
+    if request.method == 'GET':
+        return "Server is running and route is active"
+    if request.method == 'POST':
+        if request.headers['Content-Type'] == 'application/json':
+            try:
+                request_data = json.loads(json.dumps(request.json))
+                payload = request_data['text']
+            except:
+                return "Bad Data"
+            try:
+                print "post works"        
+                username = os.getenv('PIUsername')
+                print username
+                password = os.getenv('PIPassword')
+                url = os.getenv('PIUrl')
+            except:
+                print "shit"
+                return "environment variables dont exist"
+            creds = {'username':username,'password':password,'url':url}
+            PIDemo = PersonalityInsightCaller(creds)
+            PIDemo.insert_text(payload)
+            insights = PIDemo.get_personality()
+            return str(insights)
+        else :
+            return "Invalid data"
+
 
 @app.route('/pitest')
 def PItest():
