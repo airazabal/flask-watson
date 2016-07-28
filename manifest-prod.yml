@@ -1,3 +1,0 @@
-applications:
-- name: watson-flask-prod
-  memory: 128M

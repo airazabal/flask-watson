@@ -1,3 +1,0 @@
-applications:
-- name: watson-flask-dev
-  memory: 128M
