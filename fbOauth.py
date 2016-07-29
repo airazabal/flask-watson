@@ -40,10 +40,8 @@ class FbOauth(object):
     '''
     def fire_request(self, request_string):
     	if self.testing:
-    		with open('data.json') as data_file:
+    		with open('resources/data.json') as data_file:
     			data = json.load(data_file)
     		return data 
     	else:
     		return request.get(request_string).content
-    # def get_feed(self):
-    #     return self.baseURL + str(self.fbid) + '/' + 'feed?access_token=%s' % (self.oauthToken)
