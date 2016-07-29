@@ -3,7 +3,8 @@ from flask import Flask
 from flask import request
 from flask import json
 from flask import jsonify
-from personality_insights_wrapper import PersonalityInsight
+from watsoncaller.personality_insights_wrapper import PersonalityInsight
+
 
 app = Flask(__name__)
 

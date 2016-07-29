@@ -1,4 +1,4 @@
-from personality_insights_wrapper import PersonalityInsight, MockPersonalityInsight
+from watsoncaller.personality_insights_wrapper import PersonalityInsight, MockPersonalityInsight
 import unittest
 
 big_5_row = [u'Big 5', u'Conscientiousness', u'Openness', u'category', u'personality', u'percentage', 0.4605497169149773, u'id', u'Liberalism', u'sampling_error', 0.07363731496, u'name', u'Authority-challenging']
