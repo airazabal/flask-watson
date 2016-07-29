@@ -33,7 +33,12 @@ class FbOauth(object):
 	'''
     def get_fields(self, fields):
         return self.baseURL + str(self.fbid) + '/' + '?fields=' + '%2C'.join(fields) + '&access_token=%s' % (self.oauthToken)
-
+    '''
+    wrapper for firing a request in the testing context
+    takes in a request string
+    if the object is testing, then it simply returns the json stored locally
+    else it fires the composed request, and returns the content
+    '''
     def fire_request(self, request_string):
     	if self.testing:
     		with open('data.json') as data_file:
