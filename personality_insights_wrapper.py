@@ -8,7 +8,7 @@ import urllib
 class MockPersonalityInsight:
 
     def return_pi(self, text=None):
-        file = open("insights.pickle","rb")
+        file = open("resources/insights.pickle","rb")
         object_file = pickle.load(file)
         file.close()
         return object_file
