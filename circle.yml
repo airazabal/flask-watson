@@ -6,7 +6,8 @@ dependencies:
 
 test:
   override:
-    - ./test.sh 
+    - flake8 ./
+    - nosetests ./ 
 
 test:
   post:
