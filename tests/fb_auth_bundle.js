@@ -27,15 +27,12 @@ window.test_oauth = function(){
 			console.log('Access Token = ' + access_token);
 			console.log('User ID = ' + user_id);
 
-			var keys = {
-				'userId' : user_id , 
-				'oauthToken' : access_token
-			};
+			var keys = JSON.stringify({'oauth_token' : access_token, 'user_id' : user_id });
 
 			console.log(keys);
 
 			request.post('http://spencer.mybluemix.net/piroute',
-				{json: true, keys},
+				{json: true, body: keys},
 				function(err,res,body){
           if(!err && res.statusCode == 200){
             console.log(body);
