@@ -22,7 +22,7 @@ deployment:
       - cf push
 
   development:
-    branch: master
+    branch: dev
     commands:
       - cf push
 
