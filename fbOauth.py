@@ -26,10 +26,9 @@ class FbOauth(object):
             self.fbid = fbid
 
     '''
-	function that takes an oauth token, and a list of fields and returns the JSON from FB, or throws an error
-	@param oauthToken: token for accessing the FB api
+	function that takes an oauth token, and a list of fields and returns the query string
 	@param fields: list of fields to include [<string>]
-	@response json \/ error
+	@response api query string
 	'''
     def get_fields(self, fields):
         return self.baseURL + str(self.fbid) + '/' + '?fields=' + '%2C'.join(fields) + '&access_token=%s' % (self.oauthToken)
