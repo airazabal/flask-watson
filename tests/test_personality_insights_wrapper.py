@@ -1,4 +1,4 @@
-from personality_insights_wrapper import PersonalityInsight
+from watsoncaller.personality_insights_wrapper import PersonalityInsight
 import unittest
 
 big_5_row = [u'Big 5', u'Conscientiousness', u'Openness', u'category',
