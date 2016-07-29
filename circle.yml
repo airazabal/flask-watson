@@ -6,7 +6,8 @@ dependencies:
 
 test:
   override:
-    - ./test.sh 
+    - flake8 ./
+    - nosetests ./
 
 test:
   post:
@@ -23,10 +24,5 @@ deployment:
 
   development:
     branch: dev
-    commands:
-      - cf push
-
-  staging:
-    branch: watsonPI
     commands:
       - cf push
