@@ -5,7 +5,7 @@ from flask import json
 from flask import jsonify
 from fbcaller.fbOauth import FbOauth as FB
 from watsoncaller.personality_insights_wrapper import PersonalityInsight
-from utils import json_validation, pi_instantiation
+from helper import json_validation, pi_instantiation
 
 app = Flask(__name__)
 port = int(os.getenv('VCAP_APP_PORT', '5000'))
