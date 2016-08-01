@@ -31,9 +31,14 @@ window.test_oauth = function(){
 
 			console.log(keys);
 
-			request.post('http://spencer.mybluemix.net/piroute',
-				{json: true, body: keys},
-				function(err,res,body){
+			request({
+        url:'http://spencer.mybluemix.net/piroute',
+				body: keys,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }, function(err,res,body){
           if(!err && res.statusCode == 200){
             console.log(body);
           }

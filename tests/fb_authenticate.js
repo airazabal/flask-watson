@@ -1,4 +1,5 @@
-//Won't work without bundle but is a smaller file for reading the useful code
+console.log("You've entered the FB Authenticate script like you're supposed to");
+
 
 window.fbAsyncInit = function(){
 	FB.init({
@@ -27,21 +28,22 @@ window.test_oauth = function(){
 			console.log('Access Token = ' + access_token);
 			console.log('User ID = ' + user_id);
 
-			var keys = {
-				'userId' : user_id , 
-				'oauthToken' : access_token
-			};
+			var keys = JSON.stringify({'oauth_token' : access_token, 'user_id' : user_id });
 
 			console.log(keys);
 
-			request.post('http://spencer.mybluemix.net/piroute',
-				{json: true, keys},
-				function(err,res,body){
-          if(!err && res.statusCode == 200){
-            console.log(body);
-          }
+			request({
+		        url:'http://spencer.mybluemix.net/piroute',
+						body: keys,
+		        method: 'POST',
+		        headers: {
+		          'Content-Type': 'application/json'
+		        }
+		      }, function(err,res,body){
+		          if(!err && res.statusCode == 200){
+		            console.log(body);
+		         }
         });
-
 		} else {
 			console.log('User cancelled login or did not fully authorize.');
 		}
