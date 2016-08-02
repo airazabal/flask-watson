@@ -6,9 +6,17 @@ from flask import jsonify
 from fbcaller.fbOauth import FbOauth as FB
 from watsoncaller.personality_insights_wrapper import PersonalityInsight
 from helper import json_validation, pi_instantiation
+from errorHandler import ErrorHandler
 
 app = Flask(__name__)
 port = int(os.getenv('VCAP_APP_PORT', '5000'))
+
+
+@app.errorhandler(ErrorHandler)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
 
 @app.route('/')
@@ -32,9 +40,10 @@ def PIroute():
                 return jsonify(json.loads(FB(token=vj['oauth_token'], fbid=vj[
                                'user_id']).get_fb_data(['name', 'email', 'posts'])))
             else:
-                return "Invalid data"
-        except Exception, e:
-            return str(e)
+                raise ErrorHandler('Bad Data', status_code=400)
+        except Exception as e:
+            raise ErrorHandler(
+                str(e), status_code=400, payload={'input': request.json})
 
 
 @app.route('/pitest')
