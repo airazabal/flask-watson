@@ -40,10 +40,10 @@ def PIroute():
                 return jsonify(json.loads(FB(token=vj['oauth_token'], fbid=vj[
                                'user_id']).get_fb_data(['name', 'email', 'posts'])))
             else:
-                raise ErrorHandler('Bad Data', status_code=400)
+                raise ErrorHandler('Bad Data')
         except Exception as e:
             raise ErrorHandler(
-                str(e), status_code=400, payload={'input': request.json})
+                str(e),payload={'input': request.json})
 
 
 @app.route('/pitest')
