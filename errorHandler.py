@@ -25,6 +25,6 @@ class ErrorHandler(Exception):
         self.payload = payload
 
     def to_dict(self):
-        rv = dict(self.payload or ())
-        rv['message'] = self.message
-        return rv
+        return_values = dict(self.payload or ())
+        return_values['message'] = self.message
+        return return_values

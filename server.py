@@ -43,7 +43,7 @@ def PIroute():
                 raise ErrorHandler('Bad Data')
         except Exception as e:
             raise ErrorHandler(
-                str(e),payload={'input': request.json})
+                str(e), payload={'input': request.json})
 
 
 @app.route('/pitest')
