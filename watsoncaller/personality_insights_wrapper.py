@@ -38,6 +38,5 @@ class PersonalityInsight(object):
                               auth=(self.username, self.password),
                               headers={"content-type": "text/plain"},
                               data=text).text)
-        except:
-            raise Exception("Error processing the request, HTTP: %d" %
-                            self.response.status_code)
+        except Exception, e:
+            raise Exception(str(e))
