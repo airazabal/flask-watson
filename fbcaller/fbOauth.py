@@ -11,27 +11,29 @@ It will make a call, getting back some simple fields
 It will then pass those fields, packed or unpacked to whatever is needed.
 '''
 
+
 class MockFbOauth:
 
-    def get_fb_data(self, fields = []): #including this to keep the call formation the same. 
+    # including this to keep the call formation the same.
+    def get_fb_data(self, fields=[]):
         with open('resources/data.json') as data_file:
             data = json.load(data_file)
         return data
 
 
-
-
 class FbOauth(object):
-    def __new__(cls, token, fbid): #need to handle the case of these not being passed. 
+
+    # need to handle the case of these not being passed.
+    def __new__(cls, token, fbid):
         if token == 'MOCK' or fbid == 'MOCK':
             return MockFbOauth()
         else:
-            return super(FbOauth, cls).__new__(cls, token=token,fbid=fbid)
+            return super(FbOauth, cls).__new__(cls, token=token, fbid=fbid)
 
     def __init__(self, token, fbid):
         self.baseURL = 'https://graph.facebook.com/v2.7/'
         self.token = token
-        self.fbid = fbid 
+        self.fbid = fbid
 
     '''
     wrapper of the get_fields and fire_request functions
@@ -41,10 +43,10 @@ class FbOauth(object):
         return self.fire_request(self.get_fields(fields))
 
     '''
-	function that takes an oauth token, and a list of fields and returns the query string
-	@param fields: list of fields to include [<string>]
-	@response api query string
-	'''
+    function that takes an oauth token, and a list of fields and returns the query string
+    @param fields: list of fields to include [<string>]
+    @response api query string
+    '''
 
     def get_fields(self, fields):
         return self.baseURL + str(self.fbid) + '/' + '?fields=' + \
