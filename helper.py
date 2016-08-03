@@ -23,3 +23,24 @@ def pi_instantiation(mock=False):
                                        'password': password, 'url': url})
         except:
             raise Exception("environment variables dont exist")
+
+''' 
+Helper method to unpack posts from facebook data return.  
+Needs to be extended to handle multiple pages of data. 
+Accepts data in a json format (see _resources/data.json_). 
+Returns a string to be passed to Personality Insights. 
+
+'''
+
+def unpack_fb_posts(data):
+    try:
+        myS = ''
+        for item in data['posts']['data']:
+            try:
+                myS = myS + ' ' + item['message']
+            except:
+                pass
+        return myS
+    except Exception, e:
+        raise Exception(str(e) + '  no posts were found')
+     

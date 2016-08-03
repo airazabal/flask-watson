@@ -16,7 +16,7 @@ class TestFacebookRequest(unittest.TestCase):
 		fbid = '123456778'
 		myFb = FbOauth(token=token,fbid=fbid)
 		expected1 = ['error']
-		errorObj = json.loads(myFb.get_fb_data(['name', 'email', 'posts']))
+		errorObj = myFb.get_fb_data(['name', 'email', 'posts'])
 		self.assertEqual(expected1,errorObj.keys())
 		expected2 = ['message', 'code', 'type', 'fbtrace_id']
 		self.assertEqual(expected2, errorObj['error'].keys())

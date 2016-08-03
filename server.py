@@ -5,7 +5,7 @@ from flask import json
 from flask import jsonify
 from fbcaller.fbOauth import FbOauth as FB
 from watsoncaller.personality_insights_wrapper import PersonalityInsight
-from helper import json_validation, pi_instantiation
+from helper import json_validation, pi_instantiation, unpack_fb_posts
 from errorHandler import ErrorHandler
 
 app = Flask(__name__)
@@ -35,12 +35,14 @@ def PIroute():
         return "Server is running and route is active"
     if request.method == 'POST':
         try:
-            if request.headers['Content-Type'] == 'application/json':
-                vj = json_validation(request.json)
-                return jsonify(json.loads(FB(token=vj['oauth_token'], fbid=vj[
-                               'user_id']).get_fb_data(['name', 'email', 'posts'])))
+            if not request.headers['Content-Type'] == 'application/json':
+                raise ErrorHandler('Content type needs to be application/json')
             else:
-                raise ErrorHandler('Bad Data')
+                vj = json_validation(request.json)
+                data = FB(token=vj['oauth_token'], fbid=vj['user_id']).get_fb_data(
+                    ['name', 'email', 'posts'])
+                data = unpack_fb_posts(data)
+                return jsonify(pi_instantiation().return_pi(data))
         except Exception as e:
             raise ErrorHandler(
                 str(e), payload={'input': request.json})
