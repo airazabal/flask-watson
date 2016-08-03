@@ -33,10 +33,14 @@ Returns a string to be passed to Personality Insights.
 '''
 
 def unpack_fb_posts(data):
-    myS = ''
-    for item in data['posts']['data']:
-        try:
-            myS = myS + ' ' + item['message']
-        except:
-            pass
-    return myS
+    try:
+        myS = ''
+        for item in data['posts']['data']:
+            try:
+                myS = myS + ' ' + item['message']
+            except:
+                pass
+        return myS
+    except Exception, e:
+        raise Exception(str(e) + '  no posts were found')
+     

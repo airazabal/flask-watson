@@ -28,7 +28,8 @@ class PersonalityInsight(object):
         self.username = credentials['username']
         self.password = credentials['password']
         self.url = credentials['url']
-
+        
+    #TODO, this except blcok has no visibility of the response. This is broken. 
     def return_pi(self, text):
         try:
             return json.loads(
