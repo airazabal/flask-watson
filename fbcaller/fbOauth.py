@@ -40,7 +40,7 @@ class FbOauth(object):
     '''
 
     def get_fb_data(self, fields):
-        return self.fire_request(self.get_fields(fields))
+        return json.loads(self.fire_request(self.get_fields(fields)))
 
     '''
     function that takes an oauth token, and a list of fields and returns the query string

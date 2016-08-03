@@ -41,7 +41,7 @@ def PIroute():
                 vj = json_validation(request.json)
                 data = FB(token=vj['oauth_token'], fbid=vj['user_id']).get_fb_data(
                     ['name', 'email', 'posts'])
-                data = unpack_fb_posts(json.loads(data))
+                data = unpack_fb_posts(data)
                 return jsonify(pi_instantiation().return_pi(data))
         except Exception as e:
             raise ErrorHandler(
