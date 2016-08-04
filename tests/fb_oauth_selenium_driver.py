@@ -2,14 +2,15 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from nose.tools import *
 
 class OauthScript(object):
 	"""A test Oauth user sign in for Facebook access"""
 
 	def __init__(self):
 		#test user from Cerebri AI test Facebook App
-		self.fbEmail = str(os.environ.get('FB_OAUTH_EMAIL'))
-		self.fbPassword = str(os.environ.get('FB_OAUTH_PASSWORD') 
+		self.fbEmail = str(os.getenv('FB_OAUTH_EMAIL','xmcmlmu_thurnson_1469652579@tfbnw.net'))
+		self.fbPassword = str(os.getenv('FB_OAUTH_PASSWORD', 'MarkyMark2016')) 
 
 	def setup(self):
 		#open the mini-oauth server that will ask the user if they authorize the app and turn off security settings
@@ -39,12 +40,13 @@ class OauthScript(object):
 		self.server.switch_to_window(self.server.window_handles[0])
 
 		checker = self.server.find_element(By.ID, "auth_check")
-		assert checker.text == "FAILURE"
+		assert checker.text == "SUCCESS"
 
 	def teardown(self):
 		self.server.close()
 
-main = OauthScript()
-main.setup()
-main.run()
-#main.teardown()
+def test_ouath_flow():
+	main = OauthScript()
+	main.setup()
+	main.run()
+	main.teardown()
