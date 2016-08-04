@@ -1,42 +1,50 @@
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 class OauthScript(object):
+	"""A test Oauth user sign in for Facebook access"""
 
 	def __init__(self):
 		#test user from Cerebri AI test Facebook App
-		self.fbEmail = "xmcmlmu_thurnson_1469652579@tfbnw.net"
-		self.fbPassword = "MarkyMark2016" 
+		self.fbEmail = str(os.environ.get('FB_OAUTH_EMAIL'))
+		self.fbPassword = str(os.environ.get('FB_OAUTH_PASSWORD') 
+
+	def setup(self):
+		#open the mini-oauth server that will ask the user if they authorize the app and turn off security settings
+		self.server = webdriver.Firefox()
+
+		self.server.get('http://localhost:5001/oauth')
+		assert "Cerebri Oauth Tester" in self.server.title
 
 	def run(self):
-		#open the mini-oauth server that will ask the user if they authorize the app
-		server = webdriver.Firefox()
-		server.get('http://localhost:5001/oauth')
-		win1 = server.window_handles
-		assert "Cerebri Oauth Tester" in server.title
-
-		auth = server.find_element(By.NAME, "authorize")
+		auth = self.server.find_element(By.NAME, "authorize")
 		auth.click()
 
-		server.switch_to_window(server.window_handles[1])
-		assert "Facebook" in server.title
+		self.server.switch_to_window(self.server.window_handles[1])
+		assert "Facebook" in self.server.title
 
-		loginEmail = server.find_element(By.NAME, "email")
+		loginEmail = self.server.find_element(By.NAME, "email")
 		loginEmail.send_keys(self.fbEmail)
-		loginPass = server.find_element(By.NAME, "pass")
+		loginPass = self.server.find_element(By.NAME, "pass")
 		loginPass.send_keys(self.fbPassword)
-		loginSubmit = server.find_element(By.NAME, "login")
+		loginSubmit = self.server.find_element(By.NAME, "login")
 		loginSubmit.click()
 
-		confirm = server.find_element(By.NAME, "__CONFIRM__")
-		confirm.click()
+		if len(self.server.window_handles) == 2:
+			confirm = self.server.find_element(By.NAME, "__CONFIRM__")
+			confirm.click()
 
-		#server.close()
-		#fb.close()
+		self.server.switch_to_window(self.server.window_handles[0])
 
-	def checkServer(self):
-		pass
+		checker = self.server.find_element(By.ID, "auth_check")
+		assert checker.text == "FAILURE"
+
+	def teardown(self):
+		self.server.close()
 
 main = OauthScript()
+main.setup()
 main.run()
+#main.teardown()
