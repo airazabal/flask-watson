@@ -15,7 +15,7 @@ class OauthScript(object):
 	def setup(self):
 		#open the flask-front-end bluemix server
 		self.server = webdriver.PhantomJS()
-		self.server.get('http://flask-front-end.mybluemix.net/')
+		self.server.get('http://flask-front-end.mybluemix.net/oauth')
 		assert "Cerebri Oauth Tester" in self.server.title
 
 	def run(self):
