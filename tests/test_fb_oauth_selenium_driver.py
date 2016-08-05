@@ -14,8 +14,8 @@ class OauthScript(object):
 
 	def setup(self):
 		#open the flask-front-end bluemix server
-		self.server = webdriver.Firefox()
-		self.server.get('http://flask-front-end.mybluemix.net')
+		self.server = webdriver.PhantomJS()
+		self.server.get('http://flask-front-end.mybluemix.net/')
 		assert "Cerebri Oauth Tester" in self.server.title
 
 	def run(self):
@@ -34,12 +34,6 @@ class OauthScript(object):
 		loginPass.send_keys(self.fbPassword)
 		loginSubmit = self.server.find_element(By.NAME, "login")
 		loginSubmit.click()
-
-		#checks to see if the window has closed - if the user is new to the app and hasn't authenticated before
-		#it will ask them to confirm the set of permissions that Facebook is asking for
-		if len(self.server.window_handles) == 2:
-			confirm = self.server.find_element(By.NAME, "__CONFIRM__")
-			confirm.click()
 
 		#switch back to the main window
 		self.server.switch_to_window(self.server.window_handles[0])
