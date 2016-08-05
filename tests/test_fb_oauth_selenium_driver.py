@@ -51,8 +51,8 @@ class OauthScript(object):
 	def teardown(self):
 		self.server.close()
 
-# def test_ouath_flow():
-# 	main = OauthScript()
-# 	main.setup()
-# 	main.run()
-# 	main.teardown()
+def test_ouath_flow():
+	main = OauthScript()
+	main.setup()
+	main.run()
+	main.teardown()
