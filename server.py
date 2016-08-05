@@ -7,10 +7,12 @@ from fbcaller.fbOauth import FbOauth as FB
 from watsoncaller.personality_insights_wrapper import PersonalityInsight
 from helper import json_validation, pi_instantiation, unpack_fb_posts
 from errorHandler import ErrorHandler
+from flask_cors import CORS
 
 app = Flask(__name__)
 port = int(os.getenv('VCAP_APP_PORT', '5000'))
 
+cors = CORS(app, resources={r'/*': { "origins": 'http://flask-front-end.mybluemix.net/*'}})
 
 @app.errorhandler(ErrorHandler)
 def handle_invalid_usage(error):
