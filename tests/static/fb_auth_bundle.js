@@ -27,7 +27,7 @@ window.test_oauth = function(){
 			console.log('Access Token = ' + access_token);
 			console.log('User ID = ' + user_id);
 
-			var keys = JSON.stringify({'oauth_token' : access_token, 'user_id' : 'MOCK' });
+			var keys = JSON.stringify({'oauth_token' : access_token, 'user_id' : user_id });
 
 			console.log(keys);
 
