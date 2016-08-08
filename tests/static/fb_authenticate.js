@@ -61,6 +61,8 @@ window.test_oauth = function() {
         } else {
           //change the div to say something messed up
           console.log("Something went terribly wrong");
+          console.log(err);
+          console.log(res.statusCode);
           changeChecker("FAILURE");
         }
       });
