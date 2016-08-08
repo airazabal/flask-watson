@@ -40,6 +40,7 @@ class OauthScript(object):
 
 		#check the text indicator as to how the POST request to the watson connector went
 		checker = self.server.find_element(By.ID, "auth_check")
+		print checker.text, 'Checker text'
 		assert checker.text == "SUCCESS"
 
 	def teardown(self):
