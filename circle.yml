@@ -6,6 +6,12 @@ dependencies:
     - curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
     - sudo dpkg -i cf-cli_amd64.deb
     - cf -v
+    - cf api https://api.ng.bluemix.net
+    - cf auth $USER $PASSWORD
+    - cf target -o cerebri -s flask-watson-dev
+    - cd tests
+    - cf push flask-front-end
+    - cd ..
 
 test:
   override:
@@ -17,9 +23,6 @@ test:
     - cf api https://api.ng.bluemix.net
     - cf auth $USER $PASSWORD
     - cf target -o cerebri -s flask-watson-dev
-    - cd tests
-    - cf push flask-front-end
-    - cd ..
     - cf a
 
 deployment:
