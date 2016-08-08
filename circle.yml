@@ -16,6 +16,9 @@ test:
   post:
     - cf api https://api.ng.bluemix.net
     - cf auth $USER $PASSWORD
+    - cd tests
+    - cd ..
+    - cf push flask-front-end
     - cf target -o cerebri -s flask-watson-dev
     - cf a
 
