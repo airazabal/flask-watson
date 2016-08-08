@@ -1,13 +1,21 @@
+machine:
+  pre:
+    - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
 dependencies:
   pre:
     - curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
     - sudo dpkg -i cf-cli_amd64.deb
     - cf -v
+    - cf api https://api.ng.bluemix.net
+    - cf auth $USER $PASSWORD
+    - cf target -o cerebri -s flask-watson-dev
+    - cf push flask-front-end -p tests/ --no-manifest -c 'python fb_oauth_req_server.py'
+    - cd ..
 
 test:
   override:
     - flake8 ./
-    - nosetests ./ 
+    - nosetests ./
 
 test:
   post:
@@ -24,10 +32,5 @@ deployment:
 
   development:
     branch: dev
-    commands:
-      - cf push
-
-  staging:
-    branch: watsonPI
     commands:
       - cf push

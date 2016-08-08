@@ -1,4 +1,5 @@
 env/
 env_var.sh
 *.pyc
-manifest.yml
+.DS_Store
+ghostdriver.log
