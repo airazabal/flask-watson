@@ -11,8 +11,8 @@ class OauthScript(object):
 
 	def __init__(self):
 		#test user from Cerebri AI test Facebook App
-		self.fbEmail = str(os.getenv('FB_OAUTH_EMAIL','spencer@cerebri.com'))
-		self.fbPassword = str(os.getenv('FB_OAUTH_PASSWORD', 'SarahBri')) 
+		self.fbEmail = str(os.getenv('FB_OAUTH_EMAIL'))
+		self.fbPassword = str(os.getenv('FB_OAUTH_PASSWORD')) 
 
 	def setup(self):
 		#open the flask-front-end bluemix server
