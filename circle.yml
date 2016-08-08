@@ -8,6 +8,7 @@ dependencies:
     - cf -v
     - cf api https://api.ng.bluemix.net
     - cf auth $USER $PASSWORD
+    - cf target -o cerebri -s flask-watson-dev
     - cf push flask-front-end -p tests/ --no-manifest -c 'python fb_oauth_req_server.py'
     - cd ..
 
