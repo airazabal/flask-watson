@@ -51,6 +51,13 @@ def PIroute():
             raise ErrorHandler(
                 str(e), payload={'input': request.json})
 
+@app.route('/tw_piroute', methods=['GET', 'POST'])
+def PIroute_twitter():
+	if request.method == 'GET':
+		return "Server is running and the route is active"
+	if request.method == 'POST':
+		pass
+
 
 @app.route('/pitest')
 def PItest():
