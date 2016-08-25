@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import Flask
 from flask import request
 from flask import json
@@ -8,6 +9,7 @@ from watsoncaller.personality_insights_wrapper import PersonalityInsight
 from helper import json_validation, pi_instantiation, unpack_fb_posts
 from errorHandler import ErrorHandler
 from flask_cors import CORS
+from twitter import *
 
 app = Flask(__name__)
 port = int(os.getenv('VCAP_APP_PORT', '5000'))
@@ -55,9 +57,24 @@ def PIroute():
 def PIroute_twitter():
 	if request.method == 'GET':
 		return "Server is running and the route is active"
-	if request.method == 'POST':
-		pass
+    if request.method == 'POST':
+        try:
+            if not request.headers['Content-Type'] == 'application/json':
+                return request.headers['Content-Type']
+            else:
+                valid_tw = json_validation(request.json)
 
+                handle = valid_tw['username']
+                token = valid_tw['token']
+                token_secret = valid_tw['token_key']
+                con_secret = os.getenv('TW_CONSUMER_SECRET')
+                con_key = os.getenv('TW_CONSUMER_KEY')
+                t = Twitter(auth=OAuth(token, token_secret, con_key, con_secret))
+
+                data = unpack_tweets(t.statuses.user_timeline(screen_name=handle))
+                return jsonify(pi_instantiation().return_pi(data))
+        except Exception as e:
+            raise ErrorHandler(str(e), payload={'input': request.json})
 
 @app.route('/pitest')
 def PItest():
