@@ -60,7 +60,6 @@ def GOOGLERoute():
     if request.method == 'POST':
         try:
             if not request.headers['Content-Type'] == 'application/json':
-                print 'throwing content type exception'
                 raise ErrorHandler('Content type needs to be application/json')
             else:
                 token = json_validation(request.json)['access_token']
