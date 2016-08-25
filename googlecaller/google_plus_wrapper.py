@@ -11,9 +11,7 @@ def getUserActivitiesList(user_id, access_token):
         }
         return json.loads(requests.get(url, params=querystring).text)
     except Exception, e:
-        print str(e)
-        print 'failed to get user activites list'
-        raise Exception
+        raise 
 
 
 def getUserID(access_token):
@@ -26,21 +24,18 @@ def getUserID(access_token):
         return json.loads(requests.get(url, params=querystring).text)
 
     except Exception, e:
-        print str(e)
-        print 'failed to get user data'
-        raise Exception
+        raise 
 
 
 def getUserData(access_token):
     try:
         return getUserActivitiesList(getUserID(access_token)['id'], access_token)
     except Exception, e:
-        print str(e)
-        raise Exception
+        raise 
 
 
 def getUserCommentsAsString(user_data):
     try:
         return ' '.join([str(x['object']['content'].replace(u'\ufeff', ' ').replace(u'<br />', ' ').replace(u'&#39;', ' ')) for x in user_data['items']])
     except Exception, e:
-        print str(e)
+        raise
