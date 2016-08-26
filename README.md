@@ -13,12 +13,15 @@ run
 
 
 ###Instructions to test the google auth
-1) open 2 terminal windows
+0) open 2 terminal windows
+1) load the required environment vars (PIUsername, PIPassword, and PIUrl)
 2) navigate in window 1 to the tests directory
 	activate the virtual environment and then run the server with gunicorn
+	$ source env/bin/activate
 	$ gunicorn fb_oauth_req_server:app 
-3) in window 2 start the server for the main web app
-	$python server.py  
+3) in window 2 load the virtual environment and start the server for the main web app
+	$ source env/bin/activate
+	$ python server.py  
 4) In the web browser, open localhost:8080/google
 5) open the inspector in chrome/safari (if you use any other browser, shame on you)
 5) Follow through on the signin with google plus
