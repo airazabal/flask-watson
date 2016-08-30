@@ -1,6 +1,8 @@
 import os
 from flask import Flask
 from flask import render_template
+from flask import request
+import requests
 
 app = Flask(__name__)
 
@@ -12,7 +14,10 @@ def home():
 
 @app.route('/oauth')
 def Oauth():
-	return render_template('test_oauth.html')
+	test_backend_url = os.getenv('TEST_BACKEND_URL')
+
+	return render_template('facebook_oauth.html', test_backend_url=test_backend_url)
+
 
 @app.route('/google')
 def google():

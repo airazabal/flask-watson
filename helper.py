@@ -40,7 +40,7 @@ def unpack_fb_posts(data):
                 myS = myS + ' ' + item['message']
             except:
                 pass
-        return myS
+        return myS.encode('utf-8')
     except Exception, e:
         raise Exception(str(e) + '  no posts were found')
      
