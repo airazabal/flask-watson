@@ -5,6 +5,7 @@ from flask import json
 from flask import jsonify
 from fbcaller.fbOauth import FbOauth as FB
 from watsoncaller.personality_insights_wrapper import PersonalityInsight
+from googlecaller.google_plus_wrapper import getUserData, getUserCommentsAsString
 from helper import json_validation, pi_instantiation, unpack_fb_posts
 from errorHandler import ErrorHandler
 from flask_cors import CORS
@@ -50,6 +51,24 @@ def PIroute():
         except Exception as e:
             raise ErrorHandler(
                 str(e), payload={'input': request.json})
+
+@app.route('/google_auth_pi', methods=['GET', 'POST'])
+def GOOGLERoute():
+    if request.method == 'GET':
+        return "you've done it!"
+    if request.method == 'POST':
+        try:
+            if not request.headers['Content-Type'] == 'application/json':
+                raise ErrorHandler('Content type needs to be application/json')
+            else:
+                token = json_validation(request.json)['access_token']
+                data = getUserCommentsAsString(getUserData(token))
+                return jsonify(pi_instantiation().return_pi(data))
+        except Exception as e:
+
+            raise ErrorHandler(
+                str(e), payload={'input': request.json})
+
 
 
 @app.route('/pitest')

@@ -29,6 +29,7 @@
   <meta name="google-signin-client_id" content="934206789862-77b93ul3l4t4o2e54k3jqejfeupnnm1e.apps.googleusercontent.com"></meta>
 </head>
 <body>
+<h1 id = 'status'>UNAUTHORIZED</h1>
   <div id="gConnect">
     <div id="signin-button"></div>
   </div>
@@ -217,10 +218,12 @@ var fireAuthRequest = function(access_token){
 			'access_token': access_token
 		}), 
 		success: function(data){
+      $("#status").replaceWith('<h1 id = "status">SUCCESS</h1>');
 			console.log(data);
 		}, 
 		error: function(error){
 			console.log(error);
+      $("#status").replaceWith('<h1 id = "status">FAILURE</h1>');
 		}
 	});
 
