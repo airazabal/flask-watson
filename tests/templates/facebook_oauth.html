@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Cerebri Oauth Tester</title>
+	<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+
+	<script type='text/javascript'>
+	window.fbAsyncInit = function(){
+		FB.init({
+			appId	: '1060269840728852',
+			xfbml	: true,
+			version	: 'v2.7'
+		});
+		};
+
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+
+	window.test_oauth = function(){
+		FB.login(function(response){
+			if (response.authResponse) {
+				var access_token = FB.getAuthResponse()['accessToken'];
+				var user_id = FB.getAuthResponse()['userID'];
+				var keys = JSON.stringify({
+					'oauth_token' : access_token, 
+					'user_id' : user_id 
+				});
+
+				console.log(keys);
+
+				function changeChecker(text){
+					var baseDoc = window.document; 
+					var checker = baseDoc.getElementById("auth_check");
+					while(checker.childNodes.length >= 1){
+					  	checker.removeChild(checker.firstChild);
+					}
+					checker.appendChild(checker.ownerDocument.createTextNode(text))
+				}
+
+				function fireAuthRequest(keys){
+					console.log('firing the request!!!!');
+					$.ajax({
+						url: '{{ test_backend_url }}', 
+						type: 'POST', 
+						contentType: "application/json",
+						data: keys, 
+						success: function(data){
+							console.log(data);
+							changeChecker("SUCCESS");
+						}, 
+						error: function(error){
+							console.log(error);
+							changeChecker("FAILURE");
+						}
+					});
+				}
+
+				fireAuthRequest(keys);
+
+			} else {
+				console.log('User cancelled login or did not fully authorize.');
+			}
+		}, {scope: 'email, public_profile, user_friends'});
+	}
+	</script>
+</head>
+<body>
+
+<p>This is to test the passing of an Oauth token from a theoretical user</p>
+<button name="authorize" type="button" onclick="test_oauth()">Authorize!</button>
+<div id="auth_check">NOT_YET_VERIFIED</div>
+
+</body>
+</html>

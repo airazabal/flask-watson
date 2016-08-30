@@ -23,7 +23,9 @@ def parse_oauth_tokens(result):
 
 @app.route('/oauth')
 def Oauth():
-	return render_template('test_oauth.html')
+	test_backend_url = os.getenv('TEST_BACKEND_URL')
+
+	return render_template('facebook_oauth.html', test_backend_url=test_backend_url)
 
 @app.route('/twitter', methods=['GET', 'POST'])
 def twitter():
