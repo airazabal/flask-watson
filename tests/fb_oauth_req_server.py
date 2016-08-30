@@ -2,11 +2,7 @@ import os
 from flask import Flask
 from flask import render_template
 from flask import request
-from twitter import *
 import requests
-
-import webbrowser
-import time
 
 app = Flask(__name__)
 
