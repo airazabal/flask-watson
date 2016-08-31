@@ -11,6 +11,7 @@ import time
 app = Flask(__name__)
 
 port = int(os.getenv('VCAP_APP_PORT', '5001'))
+test_backend_url = os.getenv('TEST_BACKEND_URL')
 
 def parse_oauth_tokens(result):
     for r in result.split('&'):
@@ -23,8 +24,6 @@ def parse_oauth_tokens(result):
 
 @app.route('/oauth')
 def Oauth():
-	test_backend_url = os.getenv('TEST_BACKEND_URL')
-
 	return render_template('facebook_oauth.html', test_backend_url=test_backend_url)
 
 @app.route('/twitter', methods=['GET', 'POST'])
@@ -40,15 +39,7 @@ def twitter():
 
 		oauth_url = ('https://api.twitter.com/oauth/authorize?oauth_token=' + req_token + '&force_login=true')
 
-		try:
-			r = webbrowser.open(oauth_url)
-			time.sleep(2)
-
-			if not r:
-				raise Exception()
-		except:
-			return "Could not open authentication window"
-		return render_template('twitter_oauth.html')
+		return render_template('twitter_oauth.html', oauth_url=oauth_url)
 	
 	elif request.method == 'POST':
 		handle = request.form['handle']
@@ -61,11 +52,13 @@ def twitter():
 		oauth_token, oauth_token_secret = parse_oauth_tokens(twitter.oauth.access_token(oauth_verifier=oauth_verifier))
 
 		# POST to the backend
-		be = requests.post('https://twitter-watson-dev.mybluemix.net/tw_piroute',
+		be = requests.post(test_backend_url + '/tw_piroute',
 			json={"username": handle, "token": oauth_token, "token_key" : oauth_token_secret})
 
-		print be.text
-		return render_template('twitter_oauth_complete.html')
+		if be.status_code == 200:
+			return render_template('twitter_oauth_complete.html')
+		else:
+			return render_template('twitter_oauth_failed.html')
 
 	else:
 		return "Try a GET request to this route in order to authenticate"

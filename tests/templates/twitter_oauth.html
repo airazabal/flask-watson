@@ -7,10 +7,13 @@
 <body>
     <h3>Enter your Username PIN provided by Twitter</h3>
     <h4>(it will be used to complete your authentication)</h4>
+    
+    <a href={{ oauth_url }} target="_blank" name="start_oauth">Begin OAuth</a>
+
     <form action="/twitter" method="POST">
         <input type="text" name="handle" placeholder="Twitter Username">
         <input type="text" name="pin" placeholder="PIN">
-        <input type="submit" name="my-form" value="Send">
+        <input type="submit" name="submit_button" value="Send">
     </form>
 </body>
 </html>
