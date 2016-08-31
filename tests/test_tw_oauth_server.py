@@ -11,7 +11,7 @@ class TWOauthScript(object):
 	def __init__(self):
 		self.twHandle = str(os.getenv('TW_OAUTH_HANDLE'))
 		self.twPassword = str(os.getenv('TW_OAUTH_PASSWORD'))
-		self.frontEndUrl = str(os.getenv('TEST_FRONTEND_URL', 'http://0.0.0.0:5001'))
+		self.frontEndUrl = str(os.getenv('TEST_FRONTEND_URL'))
 
 	def setup(self):
 		# open the test front end bluemix server, twitter route
