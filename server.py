@@ -17,7 +17,6 @@ port = int(os.getenv('VCAP_APP_PORT', '5000'))
 cors = CORS(
 	app, resources={r'/*': {"origins": os.getenv('TEST_FRONT_END_URL', '*')}})
 
-
 @app.errorhandler(ErrorHandler)
 def handle_invalid_usage(error):
 	response = jsonify(error.to_dict())
