@@ -2,8 +2,6 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from nose.tools import *
 import time 
 
@@ -18,12 +16,7 @@ class TWOauthScript(object):
 
 	def setup(self):
 		# open the test front end bluemix server, twitter route
-		
-		# USE FIREFOX TO TEST VISUALLY ON LOCAL MACHINE. PHANTOMJS FOR SERVER TESTS.
 		self.server = webdriver.Firefox()
-		
-		# self.server = webdriver.PhantomJS()
-
 		self.server.get(self.frontEndUrl + "/twitter")
 		assert "cerebri-flask-watson" in self.server.title
 
@@ -35,7 +28,6 @@ class TWOauthScript(object):
 
 		screenshot_dir = (self.artifact_dir + '/screenshots/')
 		ensure_dir(screenshot_dir)
-		print screenshot_dir
 
 		# begin the Oauth flow with the link on twitter_oauth.html
 		auth = self.server.find_element(By.NAME, 'start_oauth')
