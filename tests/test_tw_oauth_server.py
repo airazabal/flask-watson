@@ -35,14 +35,6 @@ class TWOauthScript(object):
 		self.server.switch_to_window(self.server.window_handles[1])
 		assert "Twitter" in self.server.title
 
-		# login the user to the Twitter page and authenticate
-		# try:
-		# 	loginUsername = WebDriverWait(self.server, 20).until(
-		# 		EC.presence_of_element_located((By.ID, "username_or_email")))
-		# finally:
-		# 	self.server.quit()
-
-
 		loginUsername = self.server.find_element(By.ID, "username_or_email")
 		loginUsername.send_keys(self.twHandle)
 		loginPass = self.server.find_element(By.ID, "password")
@@ -66,7 +58,11 @@ class TWOauthScript(object):
 		submit.click()
 
 		# check that the request returned with status code 200
-		assert "authentication complete" in self.server.title
+		try:
+			assert "authentication complete" in self.server.title
+		finally:
+			self.server.save_screenshot('auth_not_complete.png')
+			self.server.quit()
 
 	def teardown(self):
 		self.server.quit()
