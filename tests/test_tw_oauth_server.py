@@ -2,6 +2,8 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from nose.tools import *
 import time 
 
@@ -20,7 +22,6 @@ class TWOauthScript(object):
 		# self.server = webdriver.Firefox()
 		
 		self.server = webdriver.PhantomJS()
-		self.server.implicitly_wait(10) # seconds
 		self.server.get(self.frontEndUrl + "/twitter")
 		assert "cerebri-flask-watson" in self.server.title
 
@@ -34,7 +35,13 @@ class TWOauthScript(object):
 		assert "Twitter" in self.server.title
 
 		# login the user to the Twitter page and authenticate
-		loginUsername = self.server.find_element(By.ID, "username_or_email")
+		try:
+			loginUsername = WebDriverWait(self.server, 20).until(
+				EC.presence_of_element_located((By.ID, "username_or_email")))
+		finally:
+			self.server.quit()
+
+		# loginUsername = self.server.find_element(By.ID, "username_or_email")
 		loginUsername.send_keys(self.twHandle)
 		loginPass = self.server.find_element(By.ID, "password")
 		loginPass.send_keys(self.twPassword)
