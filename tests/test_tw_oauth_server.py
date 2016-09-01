@@ -20,6 +20,7 @@ class TWOauthScript(object):
 		# self.server = webdriver.Firefox()
 		
 		self.server = webdriver.PhantomJS()
+		self.server.implicitly_wait(10) # seconds
 		self.server.get(self.frontEndUrl + "/twitter")
 		assert "cerebri-flask-watson" in self.server.title
 
