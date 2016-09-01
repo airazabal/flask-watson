@@ -44,7 +44,7 @@ class TWOauthScript(object):
 		loginSubmit.click()
 
 		self.server.get_screenshot_as_file('/' + self.artifact_dir + '/Screenshots/twitter_pin.png')
-		self.server.get_screenshot_as_file('$CIRCLE_ARTIFACTS/Screenshots/twitter_pin.png')
+		self.server.get_screenshot_as_file('/$CIRCLE_ARTIFACTS/twitter_pin.png')
 
 		# select the PIN that is provided by the Twitter page
 		pin = self.server.find_element(By.XPATH, "/html/body/div[@id='bd']/div[@id='oauth_pin']/p/kbd").text
@@ -66,7 +66,7 @@ class TWOauthScript(object):
 			assert "authentication complete" in self.server.title
 		finally:
 			self.server.get_screenshot_as_file('/' + self.artifact_dir + '/Screenshots/auth_not_complete.png')
-			self.server.get_screenshot_as_file('$CIRCLE_ARTIFACTS/Screenshots/auth_not_complete.png')
+			self.server.get_screenshot_as_file('/$CIRCLE_ARTIFACTS/Screenshots/auth_not_complete.png')
 			self.server.quit()
 
 	def teardown(self):
