@@ -69,7 +69,7 @@ class TWOauthScript(object):
 			self.server.quit()
 
 	def teardown(self):
-		self.server.quit()
+		self.server.close()
 
 def test_tw_oauth():
 	main = TWOauthScript()
