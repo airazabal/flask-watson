@@ -2,6 +2,11 @@ machine:
   pre:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
     - sudo apt-get update && sudo apt-get install libpango1.0-0 && sudo apt-get install firefox
+
+general:
+  artifacts:
+    - "./tests/screenshots"
+
 dependencies:
   pre:
     - curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'

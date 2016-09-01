@@ -14,7 +14,6 @@ class TWOauthScript(object):
 		self.twHandle = str(os.getenv('TW_OAUTH_HANDLE'))
 		self.twPassword = str(os.getenv('TW_OAUTH_PASSWORD'))
 		self.frontEndUrl = str(os.getenv('TEST_FRONTEND_URL'))
-		self.artifact_dir = ('/' + str(os.getenv('CIRCLE_ARTIFACTS')) + '/screenshots')
 
 	def setup(self):
 		# open the test front end bluemix server, twitter route
@@ -33,7 +32,7 @@ class TWOauthScript(object):
 			if not os.path.exists(d):
 				os.makedirs(d)
 
-		ensure_dir(self.artifact_dir)
+		ensure_dir('./tests/screenshots')
 
 		# begin the Oauth flow with the link on twitter_oauth.html
 		auth = self.server.find_element(By.NAME, 'start_oauth')
@@ -50,7 +49,7 @@ class TWOauthScript(object):
 		loginSubmit = self.server.find_element(By.ID, "allow")
 		loginSubmit.click()
 
-		self.server.get_screenshot_as_file(self.artifact_dir + '/twitter_pin.png')
+		self.server.save_screenshot('./tests/screenshots/twitter_pin.png')
 
 		# select the PIN that is provided by the Twitter page
 		pin = self.server.find_element(By.XPATH, "/html/body/div[@id='bd']/div[@id='oauth_pin']/p/kbd").text
@@ -71,7 +70,7 @@ class TWOauthScript(object):
 		try:
 			assert "authentication complete" in self.server.title
 		finally:
-			self.server.get_screenshot_as_file(self.artifact_dir + '/auth_not_complete.png')
+			self.server.get_screenshot_as_file('./tests/screenshots/auth_not_complete.png')
 			self.server.quit()
 
 	def teardown(self):
