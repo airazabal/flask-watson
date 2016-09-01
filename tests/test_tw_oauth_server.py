@@ -64,7 +64,7 @@ class TWOauthScript(object):
 		try:
 			assert "authentication complete" in self.server.title
 		finally:
-			self.server.get_screenshot_as_file('/Screenshots/auth_not_complete.png')
+			self.server.get_screenshot_as_file(self.artifact_dir + '/Screenshots/auth_not_complete.png')
 			self.server.quit()
 
 	def teardown(self):
