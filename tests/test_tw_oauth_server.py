@@ -41,6 +41,8 @@ class TWOauthScript(object):
 		finally:
 			self.server.quit()
 
+		print self.twHandle
+
 		# loginUsername = self.server.find_element(By.ID, "username_or_email")
 		loginUsername.send_keys(self.twHandle)
 		loginPass = self.server.find_element(By.ID, "password")
