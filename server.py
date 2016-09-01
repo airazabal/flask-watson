@@ -6,7 +6,7 @@ from flask import json
 from flask import jsonify
 from fbcaller.fbOauth import FbOauth as FB
 from watsoncaller.personality_insights_wrapper import PersonalityInsight
-from helper import json_validation, pi_instantiation, unpack_fb_posts
+from helper import json_validation, pi_instantiation, unpack_fb_posts, unpack_tweets
 from errorHandler import ErrorHandler
 from flask_cors import CORS
 from twitter import *
