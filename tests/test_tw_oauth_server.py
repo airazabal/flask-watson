@@ -33,7 +33,7 @@ class TWOauthScript(object):
 			if not os.path.exists(d):
 				os.makedirs(d)
 
-		screenshot_dir = (self.artifact_dir + '/screenshots')
+		screenshot_dir = (self.artifact_dir + '/screenshots/')
 		ensure_dir(screenshot_dir)
 		print screenshot_dir
 
