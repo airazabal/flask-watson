@@ -52,14 +52,18 @@ def twitter():
 
 		oauth_token, oauth_token_secret = parse_oauth_tokens(twitter.oauth.access_token(oauth_verifier=oauth_verifier))
 
+		twitter_be_url = (test_backend_url + '/tw_piroute')
+
 		# POST to the backend
-		be = requests.post(test_backend_url + '/tw_piroute',
+		be = requests.post( twitter_be_url,
 			json={"username": handle, "token": oauth_token, "token_key" : oauth_token_secret})
 
 		if be.status_code == 200:
 			return render_template('twitter_oauth_complete.html')
 		else:
-			return render_template('twitter_oauth_failed.html')
+			status_code = be.status_code
+			error_message = be.text
+			return render_template('twitter_oauth_failed.html', status_code=status_code, error_message=error_message)
 
 	else:
 		return "Try a GET request to this route in order to authenticate"
