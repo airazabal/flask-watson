@@ -43,7 +43,7 @@ class TWOauthScript(object):
 		loginSubmit = self.server.find_element(By.ID, "allow")
 		loginSubmit.click()
 
-		self.server.get_screenshot_as_file(self.artifact_url + '/Screenshots/twitter_pin.png')
+		self.server.get_screenshot_as_file(self.artifact_dir + '/Screenshots/twitter_pin.png')
 
 		# select the PIN that is provided by the Twitter page
 		pin = self.server.find_element(By.XPATH, "/html/body/div[@id='bd']/div[@id='oauth_pin']/p/kbd").text
