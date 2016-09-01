@@ -14,6 +14,7 @@ class TWOauthScript(object):
 		self.twHandle = str(os.getenv('TW_OAUTH_HANDLE'))
 		self.twPassword = str(os.getenv('TW_OAUTH_PASSWORD'))
 		self.frontEndUrl = str(os.getenv('TEST_FRONTEND_URL'))
+		self.artifact_dir = str(os.getenv('CIRCLE_ARTIFACTS'))
 
 	def setup(self):
 		# open the test front end bluemix server, twitter route
@@ -42,7 +43,7 @@ class TWOauthScript(object):
 		loginSubmit = self.server.find_element(By.ID, "allow")
 		loginSubmit.click()
 
-		self.server.get_screenshot_as_file('/Screenshots/twitter_pin.png')
+		self.server.get_screenshot_as_file(self.artifact_url + '/Screenshots/twitter_pin.png')
 
 		# select the PIN that is provided by the Twitter page
 		pin = self.server.find_element(By.XPATH, "/html/body/div[@id='bd']/div[@id='oauth_pin']/p/kbd").text
