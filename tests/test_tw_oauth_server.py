@@ -64,9 +64,8 @@ class TWOauthScript(object):
 		# check that the request returned with status code 200
 		try:
 			assert "authentication complete" in self.server.title
-		finally:
+		except:
 			self.server.save_screenshot(screenshot_dir + '/auth_not_complete.png')
-			self.server.quit()
 
 	def teardown(self):
 		self.server.close()
