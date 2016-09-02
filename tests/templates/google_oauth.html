@@ -1,5 +1,4 @@
 <!--
-
 /*
  *
  * Copyright 2015 Google Inc.
@@ -16,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 -->
 
 <!DOCTYPE html>
@@ -87,10 +85,8 @@ var helper = (function() {
           $('#authOps').hide('slow');
           $('#gConnect').show();
       }
-
       console.log('authResult', authResult);
     },
-
     /**
      * Calls the OAuth2 endpoint to disconnect the app for the user.
      */
@@ -98,7 +94,6 @@ var helper = (function() {
       // Revoke the access token.
       auth2.disconnect();
     },
-
     /**
      * Gets and renders the list of people visible to this app.
      */
@@ -117,7 +112,6 @@ var helper = (function() {
         }
       });
     },
-
     /**
      * Gets and renders the currently signed in user's profile data.
      */
@@ -152,7 +146,6 @@ var helper = (function() {
     }
   };
 })();
-
 /**
  * jQuery initialization
  */
@@ -167,7 +160,6 @@ $(document).ready(function() {
     );
   }
 });
-
 /**
  * Handler for when the sign-in state changes.
  *
@@ -186,7 +178,6 @@ var updateSignIn = function() {
     helper.onSignInCallback(gapi.auth2.getAuthInstance());
   }
 }
-
 /**
  * This method sets up the sign-in listener after the client library loads.
  */
@@ -207,7 +198,6 @@ function startApp() {
     });
   });
 }
-
 var fireAuthRequest = function(access_token){
 	console.log('firing the request!!!!');
 	$.ajax({
@@ -226,9 +216,7 @@ var fireAuthRequest = function(access_token){
       $("#status").replaceWith('<h1 id = "status">FAILURE</h1>');
 		}
 	});
-
 }
-
 </script>
 <script src="https://apis.google.com/js/client:platform.js?onload=startApp"></script>
 </body>

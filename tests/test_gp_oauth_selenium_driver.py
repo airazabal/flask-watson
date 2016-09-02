@@ -12,21 +12,29 @@ class GPOauthScript(object):
 		# test user created for Google+ use
 		self.gEmail = str(os.getenv('G_EMAIL'))
 		self.gPW = str(os.getenv('G_PW'))
+		self.frontEndUrl = str(os.getenv('TEST_FRONTEND_URL'))
+		self.screenshotDir = (str(os.getenv('CIRCLE_ARTIFACTS')) + '/screenshots/')
+
+		if not os.path.exists(self.screenshotDir):
+			os.makedirs(self.screenshotDir)
 
 	def setup(self):
 		self.server = webdriver.Firefox()
-		self.server.get('http://flask-front-end.mybluemix.net/google')
+		self.server.get(fronEndUrl + '/google')
 
 	def run(self):
 		#click the 'Authorize!' button
 		auth = self.server.find_element(By.ID, "gConnect")
 		auth.click()
 
-		#switch to the popup window that asks for a Facebook login
+		#switch to the popup window that asks for a Google login
 		self.server.switch_to_window(self.server.window_handles[1])
-		assert "Sign in - Google Accounts" in self.server.title
+		try:
+			assert "Sign in - Google Accounts" in self.server.title
+		except:
+			self.server.save_screenshot(screenshotDir + '/no_login_page.png')
 
-		#enter Facebook credentials and hit the login button
+		#enter Google credentials and hit the login button
 		loginEmail = self.server.find_element(By.NAME, "Email")
 		loginEmail.send_keys(self.gEmail)
 		clickCont = self.server.find_element(By.NAME, 'signIn')
@@ -43,7 +51,16 @@ class GPOauthScript(object):
 		#check the text indicator as to how the POST request to the watson connector went
 		checker = self.server.find_element(By.ID, "status")
 		print checker.text, 'Checker text'
-		assert checker.text == "SUCCESS"
+		try:
+			assert checker.text == "SUCCESS"
+		except:
+			self.server.save_screenshot(screenshotDir + '/gp_auth_failed.png')
 
 	def teardown(self):
-		self.server.close()
+		self.server.quit()
+
+def test_gp_oauth():
+	main = GPOauthScript()
+	main.setup()
+	main.run()
+	main.teardown()
