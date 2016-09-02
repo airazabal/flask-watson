@@ -25,6 +25,7 @@ class GPOauthScript(object):
 			assert "Google" in self.server.title
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/no_start_page.png')
+			raise
 
 	def run(self):
 		#click the 'Authorize!' button
@@ -37,6 +38,7 @@ class GPOauthScript(object):
 			assert "Sign in - Google Accounts" in self.server.title
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/no_login_page.png')
+			raise
 
 		#enter Google credentials and hit the login button
 		try:
@@ -51,6 +53,7 @@ class GPOauthScript(object):
 			loginSubmit.click()
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/login_problem.png')
+			raise
 
 		#switch back to the main window
 		self.server.switch_to_window(self.server.window_handles[0])
@@ -58,10 +61,12 @@ class GPOauthScript(object):
 		#check the text indicator as to how the POST request to the watson connector went
 		checker = self.server.find_element(By.ID, "status")
 		print checker.text, 'Checker text'
+		
 		try:
 			assert checker.text == "SUCCESS"
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/gp_auth_failed.png')
+			raise
 
 	def teardown(self):
 		self.server.quit()
