@@ -20,7 +20,7 @@ class GPOauthScript(object):
 
 	def setup(self):
 		self.server = webdriver.Firefox()
-		self.server.get(frontEndUrl + '/google')
+		self.server.get(self.frontEndUrl + '/google')
 
 	def run(self):
 		#click the 'Authorize!' button
@@ -32,7 +32,7 @@ class GPOauthScript(object):
 		try:
 			assert "Sign in - Google Accounts" in self.server.title
 		except:
-			self.server.save_screenshot(screenshotDir + '/no_login_page.png')
+			self.server.save_screenshot(self.screenshotDir + '/no_login_page.png')
 
 		#enter Google credentials and hit the login button
 		loginEmail = self.server.find_element(By.NAME, "Email")
@@ -54,7 +54,7 @@ class GPOauthScript(object):
 		try:
 			assert checker.text == "SUCCESS"
 		except:
-			self.server.save_screenshot(screenshotDir + '/gp_auth_failed.png')
+			self.server.save_screenshot(self.screenshotDir + '/gp_auth_failed.png')
 
 	def teardown(self):
 		self.server.quit()
