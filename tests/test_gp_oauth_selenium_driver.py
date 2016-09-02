@@ -21,6 +21,10 @@ class GPOauthScript(object):
 	def setup(self):
 		self.server = webdriver.Firefox()
 		self.server.get(self.frontEndUrl + '/google')
+		try:
+			assert "Google" in self.server.title
+		except:
+			self.server.save_screenshot(self.screenshotDir + '/no_start_page.png')
 
 	def run(self):
 		#click the 'Authorize!' button
@@ -28,8 +32,8 @@ class GPOauthScript(object):
 		auth.click()
 
 		#switch to the popup window that asks for a Google login
-		self.server.switch_to_window(self.server.window_handles[1])
 		try:
+			self.server.switch_to_window(self.server.window_handles[1])
 			assert "Sign in - Google Accounts" in self.server.title
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/no_login_page.png')
