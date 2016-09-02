@@ -20,7 +20,7 @@ class GPOauthScript(object):
 
 	def setup(self):
 		self.server = webdriver.Firefox()
-		self.server.get(fronEndUrl + '/google')
+		self.server.get(frontEndUrl + '/google')
 
 	def run(self):
 		#click the 'Authorize!' button
