@@ -4,3 +4,4 @@ env_var.sh
 .DS_Store
 ghostdriver.log
 tests/env/
+config.py

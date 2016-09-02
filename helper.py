@@ -44,3 +44,11 @@ def unpack_fb_posts(data):
     except Exception, e:
         raise Exception(str(e) + '  no posts were found')
      
+def unpack_tweets(tw_data):
+    try:
+        twStr = ''
+        for tweet in range(0, len(tw_data)):
+            twStr = twStr + ' ' + tw_data[tweet]['text']
+        return twStr
+    except Exception, e:
+        raise Exception(str(e) + ' no tweets were found')
