@@ -28,7 +28,7 @@ class GPOauthScript(object):
 
 	def run(self):
 		#click the 'Authorize!' button
-		auth = self.server.find_element(By.ID, "gConnect")
+		auth = self.server.find_element(By.ID, "signin-button")
 		auth.click()
 
 		#switch to the popup window that asks for a Google login
@@ -39,15 +39,18 @@ class GPOauthScript(object):
 			self.server.save_screenshot(self.screenshotDir + '/no_login_page.png')
 
 		#enter Google credentials and hit the login button
-		loginEmail = self.server.find_element(By.NAME, "Email")
-		loginEmail.send_keys(self.gEmail)
-		clickCont = self.server.find_element(By.NAME, 'signIn')
-		clickCont.click()
+		try:
+			loginEmail = self.server.find_element(By.NAME, "Email")
+			loginEmail.send_keys(self.gEmail)
+			clickCont = self.server.find_element(By.NAME, 'signIn')
+			clickCont.click()
 
-		loginPass = self.server.find_element(By.NAME, "Passwd")
-		loginPass.send_keys(self.gPW)
-		loginSubmit = self.server.find_element(By.NAME, "signIn")
-		loginSubmit.click()
+			loginPass = self.server.find_element(By.NAME, "Passwd")
+			loginPass.send_keys(self.gPW)
+			loginSubmit = self.server.find_element(By.NAME, "signIn")
+			loginSubmit.click()
+		except:
+			self.server.save_screenshot(self.screenshotDir + '/login_problem.png')
 
 		#switch back to the main window
 		self.server.switch_to_window(self.server.window_handles[0])
