@@ -32,11 +32,8 @@ class GPOauthScript(object):
 			raise
 
 	def run(self):
-		
-
 		#click the 'Authorize!' button
 		try:
-			
 			button = self.wait.until(EC.element_to_be_clickable((By.ID, "signin-button")))
 			auth = self.server.find_element(By.XPATH, "/html/body/div[@id='gConnect']/div[@id='signin-button']/div[@class='abcRioButton abcRioButtonWhite']/div[@class='abcRioButtonContentWrapper']")
 		except:
@@ -67,14 +64,22 @@ class GPOauthScript(object):
 			loginPass.send_keys(self.gPW)
 			loginSubmit = self.wait.until(EC.presence_of_element_located((By.XPATH, "//form[@id='gaia_loginform']/div[2]/div/input")))
 			loginSubmit.click()
+			time.sleep(2)
+
+			if len(self.server.window_handles) == 2:
+				finalSubmit = self.wait.until(EC.element_to_be_clickable((By.ID, "submit_approve_access")))
+				finalSubmit.click()
+
 		except:
+			print "entering this except statement"
 			self.server.save_screenshot(self.screenshotDir + '/login_problem.png')
-			# self.server.quit()
+			self.server.quit()
 			raise
 
 		#switch back to the main window
 		self.server.switch_to_window(self.server.window_handles[0])
-		time.sleep(5)
+		time.sleep(2)
+		
 		#check the text indicator as to how the POST request to the watson connector went
 		checker = self.server.find_element(By.ID, "status")
 		print checker.text, 'Checker text'
