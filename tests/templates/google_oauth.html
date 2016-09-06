@@ -27,7 +27,7 @@
   <meta name="google-signin-client_id" content="934206789862-77b93ul3l4t4o2e54k3jqejfeupnnm1e.apps.googleusercontent.com"></meta>
 </head>
 <body>
-<h1 id = 'status'>UNAUTHORIZED</h1>
+  <h1 id = 'status'>UNAUTHORIZED</h1>
   <div id="gConnect">
     <div id="signin-button"></div>
   </div>
@@ -72,7 +72,7 @@ var helper = (function() {
       }
       if (authResult.isSignedIn.get()) {
         $('#authOps').show('slow');
-        //$('#gConnect').hide();
+        $('#gConnect').hide();
         helper.profile();
         helper.people();
       } else {
@@ -201,7 +201,7 @@ function startApp() {
 var fireAuthRequest = function(access_token){
 	console.log('firing the request!!!!');
 	$.ajax({
-		url: 'http://localhost:5000/google_auth_pi', 
+		url: '{{test_backend_url}}' + '/google_auth_pi', 
 		type: 'POST', 
 		contentType: "application/json",
 		data: JSON.stringify({

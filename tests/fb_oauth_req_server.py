@@ -74,7 +74,7 @@ def twitter():
 
 @app.route('/google')
 def google():
-	return render_template('google_oauth.html')
+	return render_template('google_oauth.html', test_backend_url=test_backend_url)
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=port)
