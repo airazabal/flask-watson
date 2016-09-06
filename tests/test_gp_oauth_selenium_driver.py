@@ -32,11 +32,12 @@ class GPOauthScript(object):
 	def run(self):
 		#click the 'Authorize!' button
 		try:
-			auth = WebDriverWait(self.server, 10).until(EC.presence_of_element_located((By.ID, "signin-button")))
-			auth.click()
+			auth = WebDriverWait(self.server, 20).until(EC.presence_of_element_located((By.ID, "signin-button")))
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/no_login_button.png')
 			raise
+
+		auth.click()
 
 		#switch to the popup window that asks for a Google login
 		try:
