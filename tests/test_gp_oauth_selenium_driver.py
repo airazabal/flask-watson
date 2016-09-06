@@ -2,6 +2,7 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from nose.tools import *
@@ -22,6 +23,7 @@ class GPOauthScript(object):
 
 	def setup(self):
 		self.server = webdriver.Firefox()
+		self.wait = WebDriverWait(self.server, 10)
 		self.server.get(self.frontEndUrl + '/google')
 		try:
 			assert "Google" in self.server.title
@@ -30,14 +32,20 @@ class GPOauthScript(object):
 			raise
 
 	def run(self):
+		
+
 		#click the 'Authorize!' button
 		try:
-			auth = WebDriverWait(self.server, 20).until(EC.presence_of_element_located((By.ID, "signin-button")))
+			
+			button = self.wait.until(EC.element_to_be_clickable((By.ID, "signin-button")))
+			auth = self.server.find_element(By.XPATH, "/html/body/div[@id='gConnect']/div[@id='signin-button']/div[@class='abcRioButton abcRioButtonWhite']/div[@class='abcRioButtonContentWrapper']")
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/no_login_button.png')
+			self.server.quit()
 			raise
 
-		auth.click()
+		actions = ActionChains(self.server)
+		actions.move_to_element(auth).click().perform()
 
 		#switch to the popup window that asks for a Google login
 		try:
@@ -45,6 +53,7 @@ class GPOauthScript(object):
 			assert "Sign in - Google Accounts" in self.server.title
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/no_login_page.png')
+			self.server.quit()
 			raise
 
 		#enter Google credentials and hit the login button
@@ -54,12 +63,13 @@ class GPOauthScript(object):
 			clickCont = self.server.find_element(By.NAME, 'signIn')
 			clickCont.click()
 
-			loginPass = self.server.find_element(By.NAME, "Passwd")
+			loginPass = self.wait.until(EC.presence_of_element_located((By.NAME, "Passwd")))
 			loginPass.send_keys(self.gPW)
-			loginSubmit = self.server.find_element(By.NAME, "signIn")
+			loginSubmit = self.wait.until(EC.presence_of_element_located((By.XPATH, "//form[@id='gaia_loginform']/div[2]/div/input")))
 			loginSubmit.click()
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/login_problem.png')
+			# self.server.quit()
 			raise
 
 		#switch back to the main window
@@ -73,6 +83,7 @@ class GPOauthScript(object):
 			assert checker.text == "SUCCESS"
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/gp_auth_failed.png')
+			self.server.quit()
 			raise
 
 	def teardown(self):
