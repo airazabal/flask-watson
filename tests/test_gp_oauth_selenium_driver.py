@@ -83,6 +83,8 @@ class GPOauthScript(object):
 			assert checker.text == "SUCCESS"
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/gp_auth_failed.png')
+			self.server.switch_to_window(self.server.window_handles[1])
+			self.server.save_screenshot(self.screenshotDir + '/gp_auth_failed_2.png')
 			self.server.quit()
 			raise
 
