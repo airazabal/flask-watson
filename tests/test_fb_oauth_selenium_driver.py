@@ -84,7 +84,7 @@ class FBOauthScript(object):
 	def teardown(self):
 		self.server.quit()
 
-def test_fb_flow():
+def test_fb_oauth():
 	main = FBOauthScript()
 	main.setup()
 	main.run()
