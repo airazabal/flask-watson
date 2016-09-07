@@ -27,7 +27,7 @@ def handle_invalid_usage(error):
 
 @app.route('/')
 def index():
-	return 'Server is working try the /pitest route'
+	return 'Server is working try the /facebook, /google or /twitter routes'
 
 
 @app.route('/test')
@@ -35,10 +35,10 @@ def hello():
 	return 'Hello, World'
 
 
-@app.route('/piroute', methods=['GET', 'POST'])
-def PIroute():
+@app.route('/fb_piroute', methods=['GET', 'POST'])
+def PIroute_facebook():
 	if request.method == 'GET':
-		return "Server is running and route is active"
+		return "Server is running and Facebook route is active"
 	if request.method == 'POST':
 		try:
 			if not request.headers['Content-Type'] == 'application/json':
@@ -56,7 +56,7 @@ def PIroute():
 @app.route('/tw_piroute', methods=['GET', 'POST'])
 def PIroute_twitter():
 	if request.method == 'GET':
-		return "Server is running and the route is active"
+		return "Server is running and the Twitter route is active"
 	if request.method == 'POST':
 		try:
 			if not request.headers['Content-Type'] == 'application/json':
@@ -75,10 +75,10 @@ def PIroute_twitter():
 		except Exception as e:
 			raise ErrorHandler(str(e), payload={'input': request.json})
 
-@app.route('/google_auth_pi', methods=['GET', 'POST'])
-def GOOGLERoute():
+@app.route('/gp_piroute', methods=['GET', 'POST'])
+def PIroute_google():
     if request.method == 'GET':
-        return "you've done it!"
+        return "Server is running and the Google Plus route is active"
     if request.method == 'POST':
         try:
             if not request.headers['Content-Type'] == 'application/json':
