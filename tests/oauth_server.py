@@ -27,7 +27,7 @@ def parse_oauth_tokens(result):
 def home():
 	return 'Hello there friend.  Looks like you might be lost?'
 
-@app.route('/oauth')
+@app.route('/facebook')
 def Oauth():
 	return render_template('facebook_oauth.html', test_backend_url=test_backend_url)
 

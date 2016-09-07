@@ -16,7 +16,7 @@ class GPOauthScript(object):
 		self.gEmail = str(os.getenv('G_EMAIL'))
 		self.gPW = str(os.getenv('G_PW'))
 		self.frontEndUrl = str(os.getenv('TEST_FRONTEND_URL'))
-		self.screenshotDir = (str(os.getenv('CIRCLE_ARTIFACTS')) + '/screenshots/')
+		self.screenshotDir = (str(os.getenv('CIRCLE_ARTIFACTS')) + '/screenshots/google/')
 
 		if not os.path.exists(self.screenshotDir):
 			os.makedirs(self.screenshotDir)
@@ -29,10 +29,11 @@ class GPOauthScript(object):
 			assert "Google" in self.server.title
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/no_start_page.png')
+			self.server.quit()
 			raise
 
 	def run(self):
-		#click the 'Authorize!' button
+		# click the Google sign in button button
 		try:
 			button = self.wait.until(EC.element_to_be_clickable((By.ID, "signin-button")))
 			auth = self.server.find_element(By.XPATH, "/html/body/div[@id='gConnect']/div[@id='signin-button']/div[@class='abcRioButton abcRioButtonWhite']/div[@class='abcRioButtonContentWrapper']")
@@ -44,7 +45,7 @@ class GPOauthScript(object):
 		actions = ActionChains(self.server)
 		actions.move_to_element(auth).click().perform()
 
-		#switch to the popup window that asks for a Google login
+		# switch to the popup window that asks for a Google login
 		try:
 			self.server.switch_to_window(self.server.window_handles[1])
 			assert "Sign in - Google Accounts" in self.server.title
@@ -53,7 +54,7 @@ class GPOauthScript(object):
 			self.server.quit()
 			raise
 
-		#enter Google credentials and hit the login button
+		# enter Google credentials and hit the login button
 		try:
 			loginEmail = self.server.find_element(By.NAME, "Email")
 			loginEmail.send_keys(self.gEmail)
@@ -69,27 +70,25 @@ class GPOauthScript(object):
 			if len(self.server.window_handles) == 2:
 				finalSubmit = self.wait.until(EC.element_to_be_clickable((By.ID, "submit_approve_access")))
 				finalSubmit.click()
-
 		except:
-			print "entering this except statement"
 			self.server.save_screenshot(self.screenshotDir + '/login_problem.png')
 			self.server.quit()
 			raise
 
-		#switch back to the main window
+		# switch back to the main window
 		self.server.switch_to_window(self.server.window_handles[0])
 		time.sleep(2)
 		
-		#check the text indicator as to how the POST request to the watson connector went
+		# check that the POST request returned with status code 200 from watson connector
 		checker = self.server.find_element(By.ID, "status")
 		print checker.text, 'Checker text'
 		
 		try:
 			assert checker.text == "SUCCESS"
 		except:
-			self.server.save_screenshot(self.screenshotDir + '/gp_auth_failed.png')
+			self.server.save_screenshot(self.screenshotDir + '/auth_failed.png')
 			self.server.switch_to_window(self.server.window_handles[1])
-			self.server.save_screenshot(self.screenshotDir + '/gp_auth_failed_2.png')
+			self.server.save_screenshot(self.screenshotDir + '/auth_failed_2.png')
 			self.server.quit()
 			raise
 
