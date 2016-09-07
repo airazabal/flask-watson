@@ -201,7 +201,7 @@ function startApp() {
 var fireAuthRequest = function(access_token){
 	console.log('firing the request!!!!');
 	$.ajax({
-		url: '{{test_backend_url}}' + '/google_auth_pi', 
+		url: '{{test_backend_url}}' + '/gp_piroute', 
 		type: 'POST', 
 		contentType: "application/json",
 		data: JSON.stringify({
