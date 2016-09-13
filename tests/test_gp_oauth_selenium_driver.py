@@ -36,7 +36,7 @@ class GPOauthScript(object):
 		# click the Google sign in button button
 		try:
 			button = self.wait.until(EC.element_to_be_clickable((By.ID, "signin-button")))
-			auth = self.server.find_element(By.XPATH, "/html/body/div[@id='gConnect']/div[@id='signin-button']/div[@class='abcRioButton abcRioButtonWhite']/div[@class='abcRioButtonContentWrapper']")
+			auth = self.server.find_element(By.XPATH, "/html/body/div[@id='gConnect']/div[@id='signin-button']/div/div[@class='abcRioButtonContentWrapper']")
 		except:
 			self.server.save_screenshot(self.screenshotDir + '/no_login_button.png')
 			self.server.quit()
