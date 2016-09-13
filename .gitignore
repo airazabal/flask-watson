@@ -3,3 +3,5 @@ env_var.sh
 *.pyc
 .DS_Store
 ghostdriver.log
+tests/env/
+config.py
