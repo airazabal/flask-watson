@@ -6,45 +6,45 @@ This service reads social media posts from authenticated users and returns a Per
 
 Falcon-Watson is intended to be be accessed as part of the microservice architecture of the Cerebri AI Experience Engine. Following these instructions assumes you have created an OAuth client for the social media platform of your choosing and have successfully authenticated the user. For access to the **app credentials** that are currently registered by Cerebri AI with each social media platform and to **have your client domain whitelisted on the Falcon-Watson server**, please contact the Experience Engine Team.
 
-An exmaple POST request (in Python 2.7) is listed below with options for the different social media platforms. Only one social media platform can be used at a time. It is important to note that a `'Content-Type': 'application/json'` header must be included on the POST request is using a different language or combination of Python packages (it is done automatically in this example). A successful response will return with a Personality Insight JSON.
+An exmaple POST request (in Python 2.7) is listed below with options for the different social media platforms. Only one social media platform can be used at a time. It is important to note that a `'Content-Type': 'application/json'` header must be included on the POST request if using a different language or combination of Python packages (it is done automatically in this example). A successful response will return with a Personality Insight JSON.
 
 ### Setup
-'''python
+```python
 import requests
 flask_watson_url = 'http://flask-watson-dev.mybluemix.net'
-'''
+```
 
 ### for Facebook
-'''python
-# oauthToken is the OAuth token
-# userID is the alpha-numeric string used by Facebook to identify the user
+- oauthToken is the OAuth token
+- userID is the alpha-numeric string used by Facebook to identify the user
 
+```python
 url = flask_watson_url + '/fb_piroute'
 body = {'oauth_token': accessToken, 'user_id': userID}
-'''
+```
 
 ### for Twitter
-'''python
-# username is the twitter handle
-# token is the OAuth token
-# token_key is the OAuth token key
+- username is the twitter handle
+- token is the OAuth token
+- token_key is the OAuth token key
 
+```python
 url = flask_watson_url + '/tw_piroute'
 body = {'username': username, 'token': token, 'token_key': token_key}
-'''
+```
 
 ### for Google+
-'''python
-# access_token is the Oauth token
+- access_token is the Oauth token
 
+```python
 url = flask_watson_url + '/gp_piroute'
 body = {'access_token': access_token}
-'''
+```
 
 ### POST Request
-'''python
+```python
 r = requests.post(url, json=body)
-'''
+```
 
 ## Instructions to use sample OAuth clients to simulate log-in
 
@@ -52,7 +52,7 @@ The HTML templates and `oauth_server.py` Python-Flask server in the `tests` dire
 
 1. Clone this repository on to your local machine
 2. Load the following environment variables into your current local environment:
-  - TEST_BACKEND_URL - set this to 'http://flask-watson-dev.mybluemix.net'
+  - TEST_BACKEND_URL - set this to `'http://flask-watson-dev.mybluemix.net'`
   - TW_CONSUMER_KEY - set this to the Twitter consumer key (from EE team)
   - TW_CONSUMER_SECRET - set this to the Twitter consumer key secret (from EE team)
 3. Make sure you have the following packages installed in your current Python environment (all can be added using `pip install <package>`:
