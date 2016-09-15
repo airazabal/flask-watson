@@ -18,7 +18,8 @@ run
 2) navigate in window 1 to the tests directory
 	activate the virtual environment and then run the server with gunicorn
 	$ source env/bin/activate
-	$ gunicorn fb_oauth_req_server:app 
+	$ export TEST_BACKEND_URL=http://localhost:5000
+	$ gunicorn oauth_server:app 
 3) in window 2 load the virtual environment and start the server for the main web app
 	$ source env/bin/activate
 	$ python server.py  

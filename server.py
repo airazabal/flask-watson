@@ -7,8 +7,8 @@ from flask import jsonify
 from fbcaller.fbOauth import FbOauth as FB
 from watsoncaller.personality_insights_wrapper import PersonalityInsight
 from googlecaller.google_plus_wrapper import getUserData, getUserCommentsAsString
-from helper import json_validation, pi_instantiation, unpack_fb_posts, unpack_tweets
-from errorHandler import ErrorHandler
+from helper import json_validation, pi_instantiation, unpack_fb_posts, unpack_tweets, check_fields
+from errors import ErrorHandler
 from flask_cors import CORS
 from twitter import *
 
@@ -41,6 +41,8 @@ def PIroute_facebook():
 		return "Server is running and Facebook route is active"
 	if request.method == 'POST':
 		try:
+			needed = ['oauth_token', 'user_id']
+			check_fields(needed, request.json)
 			if not request.headers['Content-Type'] == 'application/json':
 				raise ErrorHandler('Content type needs to be application/json')
 			else:
@@ -59,11 +61,12 @@ def PIroute_twitter():
 		return "Server is running and the Twitter route is active"
 	if request.method == 'POST':
 		try:
+			needed = ['username', 'token', 'token_key']
+			check_fields(needed, request.json)
 			if not request.headers['Content-Type'] == 'application/json':
 				return request.headers['Content-Type']
 			else:
 				valid_tw = json_validation(request.json)
-
 				handle = valid_tw['username']
 				token = valid_tw['token']
 				token_secret = valid_tw['token_key']
@@ -81,16 +84,16 @@ def PIroute_google():
         return "Server is running and the Google Plus route is active"
     if request.method == 'POST':
         try:
-            if not request.headers['Content-Type'] == 'application/json':
-                raise ErrorHandler('Content type needs to be application/json')
-            else:
-                token = json_validation(request.json)['access_token']
-                data = getUserCommentsAsString(getUserData(token))
-                return jsonify(pi_instantiation().return_pi(data))
+        	needed = ['access_token']
+        	check_fields(needed, request.json)
+        	if not request.headers['Content-Type'] == 'application/json':
+        		raise ErrorHandler('Content type needs to be application/json')
+        	else:
+        		token = json_validation(request.json)['access_token']
+        		data = getUserCommentsAsString(getUserData(token))
+        		return jsonify(pi_instantiation().return_pi(data))
         except Exception as e:
-
-            raise ErrorHandler(
-                str(e), payload={'input': request.json})
+        		raise ErrorHandler(str(e), payload={'input': request.json})
 
 @app.route('/pitest')
 def PItest():

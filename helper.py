@@ -1,6 +1,15 @@
 import json
 import os
 from watsoncaller.personality_insights_wrapper import PersonalityInsight
+from errors import ErrorHandler
+
+def check_fields(needed, data):
+    if data is None:
+        raise ErrorHandler("You must send data with the request")
+    missing = ','.join(list(set(needed)-set(data.keys())))
+    if (len(missing)>0):
+        raise ErrorHandler('Your call is missing the following parameters: [%s]' % (missing))
+
 
 
 def json_validation(json_data):
