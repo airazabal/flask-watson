@@ -8,6 +8,7 @@ machine:
     - sudo mv firefox /opt/firefox
     - sudo mv /usr/bin/firefox /usr/bin/firefoxold
     - sudo ln -s /opt/firefox48/firefox /usr/bin/firefox
+    - export PATH="$PATH:/opt/firefox48/firefox"
 
 dependencies:
   pre:
