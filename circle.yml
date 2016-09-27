@@ -2,13 +2,10 @@ machine:
   pre:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
     - sudo apt-get update && sudo apt-get install libpango1.0-0
-    - wget https://ftp.mozilla.org/pub/firefox/releases/48.0/linux-x86_64/en-US/firefox-48.0.tar.bz2
-    - tar -xjf firefox-48.0.tar.bz2
-    - sudo rm -rf  /opt/firefox
-    - sudo mv firefox /opt/firefox
-    - sudo mv /usr/bin/firefox /usr/bin/firefoxold
-    - sudo ln -s /opt/firefox48/firefox /usr/bin/firefox
-    - export PATH="$PATH:/opt/firefox48/firefox"
+    - cd /usr/local
+    - wget http://ftp.mozilla.org/pub/mozilla.org/firefox/releases/48.0.2/linux-x86_64/en-US/firefox-48.0.2.tar.bz2
+    - tar xvjf firefox-48.0.2.tar.bz2
+    - sudo ln -s /usr/local/firefox/firefox /usr/bin/firefox
 
 dependencies:
   pre:
