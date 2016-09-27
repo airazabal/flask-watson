@@ -8,7 +8,6 @@ import requests
 import webbrowser
 import time
 
-
 app = Flask(__name__)
 
 port = int(os.getenv('VCAP_APP_PORT', '5001'))
@@ -60,7 +59,7 @@ def twitter():
 
 		# POST to the backend
 		be = requests.post( twitter_be_url,
-			json={"username": handle, "token": oauth_token, "token_key" : oauth_token_secret})
+			json={"username": str(handle), "token": str(oauth_token), "token_key" : str(oauth_token_secret)})
 
 		if be.status_code == 200:
 			return render_template('twitter_oauth_complete.html')
