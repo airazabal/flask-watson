@@ -7,6 +7,7 @@ machine:
     - tar xvjf firefox-48.0.2.tar.bz2
     - sudo mv /usr/bin/firefox /usr/bin/oldfirefox
     - sudo ln -s /usr/local/firefox/firefox /usr/bin/firefox
+    - firefox &
     - export PATH="$PATH:/usr/bin/firefox"
 
 dependencies:
