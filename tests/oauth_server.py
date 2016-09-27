@@ -59,7 +59,7 @@ def twitter():
 
 		# POST to the backend
 		be = requests.post( twitter_be_url,
-			json={"username": str(handle), "token": str(oauth_token), "token_key" : str(oauth_token_secret)})
+			json={"username": handle, "token": oauth_token, "token_key" : oauth_token_secret})
 
 		if be.status_code == 200:
 			return render_template('twitter_oauth_complete.html')
