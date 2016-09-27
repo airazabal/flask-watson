@@ -4,7 +4,7 @@ machine:
     - sudo apt-get update && sudo apt-get install libpango1.0-0 && sudo apt-get remove firefox
     - cd /usr/local
     - wget http://ftp.mozilla.org/pub/mozilla.org/firefox/releases/48.0.2/linux-x86_64/en-US/firefox-48.0.2.tar.bz2
-    - tar xvjf firefox-48.0.2.tar.bz2
+    - tar xvfb firefox-48.0.2.tar.bz2
     - sudo mv /usr/bin/firefox /usr/bin/oldfirefox
     - sudo ln -s /usr/local/firefox/firefox /usr/bin/firefox
     - export PATH="/usr/bin/firefox:$PATH"
