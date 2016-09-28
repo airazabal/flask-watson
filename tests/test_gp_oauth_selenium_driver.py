@@ -22,7 +22,7 @@ class GPOauthScript(object):
 			os.makedirs(self.screenshotDir)
 
 	def setup(self):
-		self.server = webdriver.Firefox()
+		self.server = webdriver.PhantomJS()
 		self.wait = WebDriverWait(self.server, 10)
 		self.server.get(self.frontEndUrl + '/google')
 		try:
