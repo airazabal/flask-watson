@@ -24,16 +24,13 @@ def handle_invalid_usage(error):
 	response.status_code = error.status_code
 	return response
 
-
 @app.route('/')
 def index():
 	return 'Server is working try the /facebook, /google or /twitter routes'
 
-
 @app.route('/test')
 def hello():
 	return 'Hello, World'
-
 
 @app.route('/fb_piroute', methods=['GET', 'POST'])
 def PIroute_facebook():

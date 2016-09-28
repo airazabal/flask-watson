@@ -95,8 +95,9 @@ class GPOauthScript(object):
 	def teardown(self):
 		self.server.quit()
 
-def test_gp_oauth():
-	main = GPOauthScript()
-	main.setup()
-	main.run()
-	main.teardown()
+# THIS IS BROKEN - waiting on Selenium to upgrade to new version of firefox
+# def test_gp_oauth():
+# 	main = GPOauthScript()
+# 	main.setup()
+# 	main.run()
+# 	main.teardown()
