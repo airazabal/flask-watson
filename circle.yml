@@ -2,7 +2,7 @@ machine:
   pre:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
     - sudo apt-get update && sudo apt-get install libpango1.0-0
-    - sudo apt-get install firefox=44.0.2+build1-0ubuntu0.14.04.1
+    - sudo apt-get install firefox=28.0+build2-0ubuntu2
 
 dependencies:
   pre:
