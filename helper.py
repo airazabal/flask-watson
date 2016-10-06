@@ -21,8 +21,8 @@ def json_validation(json_data):
 
 def pi_instantiation(mock=False):
     if mock:
-        return PersonalityInsight({'MOCK': True, 'username': True,
-                                   'password': True, 'url': True})
+        return PersonalityInsight({'username': 'MOCK',
+                                   'password': 'MOCK', 'url': 'MOCK'})
     else:
         try:
             username = os.getenv('PIUsername')
