@@ -21,7 +21,7 @@ class TestPersonalityInsights(unittest.TestCase):
         '''Make a PI caller object
         Set your credentials so it knows where to make the post request and
         what credentials to use'''
-        insights = PersonalityInsight(creds).return_pi("Random text")
+        insights = PersonalityInsight(creds).return_pi('Random text')
 
         list_data = insights['tree']['children']
 

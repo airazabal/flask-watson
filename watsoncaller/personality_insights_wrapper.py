@@ -5,7 +5,7 @@ import pickle
 
 class MockPersonalityInsight:
 
-    def return_pi(self):
+    def return_pi(self, text=None):
         file = open("resources/insights.pickle", "rb")
         object_file = pickle.load(file)
         file.close()
