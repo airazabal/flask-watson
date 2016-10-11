@@ -94,7 +94,10 @@ def PIroute_google():
 
 @app.route('/pitest')
 def PItest():
-	return str(pi_instantiation(mock=True).return_pi('mock data'))
+	try:
+		return jsonify(pi_instantiation(mock=True).return_pi('Random text'))
+	except Exception, e:
+		raise ErrorHandler(str(e))
 
 
 if __name__ == "__main__":
