@@ -11,7 +11,7 @@ An exmaple POST request (in Python 2.7) is listed below with options for the dif
 ### Setup
 ```python
 import requests
-flask_watson_url = 'http://flask-watson-dev.mybluemix.net'
+flask_watson_url = 'http://watson-flask-prod.mybluemix.net'
 ```
 
 ### for Facebook
@@ -52,7 +52,7 @@ The HTML templates and `oauth_server.py` Python-Flask server in the `tests` dire
 
 1. Clone this repository on to your local machine
 2. Load the following environment variables into your current local environment:
-  - TEST_BACKEND_URL - set this to `'http://flask-watson-dev.mybluemix.net'`
+  - TEST_BACKEND_URL - set this to `'http://watson-flask-prod.mybluemix.net'`
   - TW_CONSUMER_KEY - set this to the Twitter consumer key (from EE team)
   - TW_CONSUMER_SECRET - set this to the Twitter consumer key secret (from EE team)
 3. Make sure you have the following packages installed in your current Python environment (all can be added using `pip install <package>`:
