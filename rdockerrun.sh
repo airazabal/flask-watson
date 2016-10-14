@@ -1,1 +1,0 @@
-sudo docker run -d --name fc -p 5000:5000 -e PIPassword='J42ZYqf4dTgj' -e PIUrl='https://gateway.watsonplatform.net/personality-insights/api' -e PIUsername='8f5d1d44-9188-4bb1-bf61-069e599214c7' -e TEST_FRONT_END_URL='http://flask-front-end.mybluemix.net/*' -e TW_CONSUMER_KEY='LmFGwF921xKAZdA3zHPXgVhuU' -e TW_CONSUMER_SECRET='E0YGhNZjZWAP3Zvwc8FCejn5G5TyE6T79BWZHb4svT4h7CcveD' fi
