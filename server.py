@@ -41,7 +41,7 @@ def PIroute_facebook():
 			needed = ['oauth_token', 'user_id']
 			check_fields(needed, request.json)
 			if not request.headers['Content-Type'] == 'application/json':
-				raise ErrorHandler('Content type needs to be application/json')
+				raise StandardError('Content type needs to be application/json')
 			else:
 				vj = json_validation(request.json)
 				data = FB(token=vj['oauth_token'], fbid=vj['user_id']).get_fb_data(
@@ -84,7 +84,7 @@ def PIroute_google():
         	needed = ['access_token']
         	check_fields(needed, request.json)
         	if not request.headers['Content-Type'] == 'application/json':
-        		raise ErrorHandler('Content type needs to be application/json')
+        		raise StandardError('Content type needs to be application/json')
         	else:
         		token = json_validation(request.json)['access_token']
         		data = getUserCommentsAsString(getUserData(token))
