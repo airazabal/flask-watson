@@ -41,4 +41,4 @@ def getUserCommentsAsString(user_data):
 
 
 def cleanCommentString(string):
-    return str(string.replace(u'\ufeff', ' ').replace(u'<br />', ' ').replace(u'&#39;', ' '))
+    return string.encode('utf-8')
