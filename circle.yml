@@ -11,7 +11,7 @@ dependencies:
     - cf -v
     - cf api https://api.ng.bluemix.net
     - cf auth $USER $PASSWORD
-    - cf target -o cerebri -s flask-watson-dev
+    - cf target -o cerebri -s mueller_watson
     - cf push flask-front-end -p tests/ --no-manifest -c 'python oauth_server.py'
     - cf push flask-back-end-test 
 
@@ -25,7 +25,7 @@ test:
     - cf stop flask-back-end-test
     - cf api https://api.ng.bluemix.net
     - cf auth $USER $PASSWORD
-    - cf target -o cerebri -s flask-watson-dev
+    - cf target -o cerebri -s mueller_watson
     - cf a
 
 deployment:
