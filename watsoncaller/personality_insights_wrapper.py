@@ -34,7 +34,8 @@ class PersonalityInsight(object):
     def return_pi(self, text):
         try:
             return json.loads(
-                requests.post(self.url + "/v2/profile",
+                requests.post(self.url + "/v3/profile",
+                              params={"consumption_preferences":"true", "version": "2016-10-20"},
                               auth=(self.username, self.password),
                               headers={"content-type": "text/plain"},
                               data=text).text)
