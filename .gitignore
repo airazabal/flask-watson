@@ -5,3 +5,4 @@ env_var.sh
 ghostdriver.log
 tests/env/
 config.py
+*.zip

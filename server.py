@@ -100,5 +100,5 @@ def PItest():
 		raise ErrorHandler(str(e))
 
 
-if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=port)
+app.listen(port)
+console.log(' Application Running on port' + port);
